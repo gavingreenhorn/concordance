@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 
 from posts.models import Post, Group
 from api.serializers import PostSerializer, GroupSerializer, CommentSerializer
@@ -10,6 +10,8 @@ class PostsViewsSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsAuthorOrReadOnly]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['author__username']
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
