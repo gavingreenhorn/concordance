@@ -1,70 +1,70 @@
 {% load static %}
-<nav class="navbar navbar-dark" style="background-color: #727272">
+<nav class="navbar navbar-dark" style="background-color: #323232">
     <div class="container">
       <a class="navbar-brand" href="{% url 'posts:index' %}">
         <img src="{% static 'img/logo.jpg' %}" width="30" height="30" class="d-inline-block align-top">
-        Concordance
       </a>
       {% with request.resolver_match.view_name as view_name %} 
       <ul class="nav nav-pills">
-        <li class="nav-item"> 
-          <a class="nav-link
-            {% if view_name  == 'about:author' %}
-            active
-            {% endif %} link-light" href="{% url 'about:author' %}">
-            Об авторе
+        <!-- <li class="nav-item"> 
+          <a class="nav-link link-light
+            {% if view_name  == 'about:author' %} active
+            {% else %} underline
+            {% endif %}" href="{% url 'about:author' %}">
+            About the author
           </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link
-            {% if view_name  == 'about:tech' %}
-            active
-            {% endif %} link-light" href="{% url 'about:tech' %}">
-            Технологии
+        </li> -->
+        <!-- <li class="nav-item">
+          <a class="nav-link  link-light
+            {% if view_name  == 'about:tech' %} active
+            {% else %} underline
+            {% endif %}" href="{% url 'about:tech' %}">
+            Tech
           </a>
-        </li>
+        </li> -->
         {% if user.is_authenticated %}
         <li class="nav-item"> 
-          <a class="nav-link
-            {% if view_name  == 'posts:post_create' %}
-            active
-            {% endif %} link-light" href="{% url 'posts:post_create' %}">
-            Новая запись
+          <a class="nav-link link-light
+            {% if view_name  == 'posts:post_create' %} active 
+            {% else %} underline
+            {% endif %}" href="{% url 'posts:post_create' %}">
+            New post
           </a>
         </li>
         <li class="nav-item"> 
           <a class="nav-link
-            {% if view_name  == 'users:password_change' %}
-            active
+            {% if view_name  == 'users:password_change' %} active
+            {% else %} underline
             {% endif %} link-light" href="{% url 'users:password_change' %}">
-            Изменить пароль
+            Change password
           </a>
         </li>
         <li class="nav-item"> 
-          <a class="nav-link {% if view_name  == 'users:logout' %}
-          active
-          {% endif %} link-light" href="{% url 'users:logout' %}">
-            Выйти
+          <a class="nav-link link-light
+          {% if view_name  == 'users:logout' %} active
+          {% else %} underline
+          {% endif %}" href="{% url 'users:logout' %}">
+            Sign out
           </a>
         </li>
-        <li class="navbar-text text-dark" style="font-weight: 500">
-          Пользователь: {{ user.username }}
+        <li class="navbar-text link-light" style="font-weight: 500">
+          User: {{ user.username }}
         </li>
         {% else %}
         <li class="nav-item"> 
-          <a class="nav-link
-            {% if view_name  == 'users:login' %}
-            active
-            {% endif %} link-light" href="{% url 'users:login' %}">
-            Войти
+          <a class="nav-link link-light
+            {% if view_name  == 'users:login' %} active
+            {% else %} underline
+            {% endif %}" href="{% url 'users:login' %}">
+            Sign in
           </a>
         </li>
         <li class="nav-item"> 
-          <a class="nav-link
-            {% if view_name  == 'users:signup' %}
-            active
-            {% endif %} link-light" href="{% url 'users:signup' %}">
-            Регистрация
+          <a class="nav-link link-light
+            {% if view_name  == 'users:signup' %} active
+            {% else %} underline
+            {% endif %}" href="{% url 'users:signup' %}">
+            Sign up
           </a>
         </li>
         {% endif %}
@@ -72,3 +72,19 @@
       </ul>
     </div>
   </nav>
+  <style>
+    .nav-pills .underline {
+      text-underline-offset: 0.1em;
+      text-decoration-color: #323232;
+      transition: text-decoration-color 250ms;
+    }
+
+    .nav-pills .underline:hover {
+      text-decoration: underline 2px;
+      text-decoration-color: red;
+    }
+
+    .nav > .nav-item > .active {
+      background-color: #626262
+    }
+  </style>

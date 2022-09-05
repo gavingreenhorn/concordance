@@ -3,12 +3,12 @@
   <div class="card my-4">
     <h5 class="card-header">{{ form.text.help_text }}</h5>
     <div class="card-body">
-      <form method="post" action="{% url 'posts:add_comment' post.id %}">
+      <form method="post" action="{% url 'posts:post_detail' post.id %}">
         {% csrf_token %}      
         <div class="form-group mb-2">
           {{ form.text|addclass:"form-control" }}
         </div>
-        <button type="submit" class="btn btn-primary">Отправить</button>
+        <button type="submit" class="btn btn-primary">Post</button>
       </form>
     </div>
   </div>

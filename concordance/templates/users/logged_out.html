@@ -1,13 +1,13 @@
 {% extends "users/base_form.html" %}
-{% block title %}Вы вышли из системы{% endblock %}
+{% block title %}You signed out{% endblock %}
 {% block header %}
-  Выход
+  Sign out
 {% endblock %}
 {% block body %}
   <p>
-    Вы вышли из своей учётной записи. Ждём вас снова!
+    You signed out of your account
   </p>
   <a class="btn btn-primary" href="{% url 'posts:index' %}">
-    На главную
+    To main page
   </a>
 {% endblock %}

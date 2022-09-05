@@ -1,7 +1,7 @@
 {% extends "users/base_form.html" %}
-{% block title %} Зарегистрироваться {% endblock %}
+{% block title %} Register {% endblock %}
 {% load user_filters %}
-{% block header %} Зарегистрироваться {% endblock %}
+{% block header %} Register {% endblock %}
 {% block body %}
     {% if form.errors %}
         {% for field in form %} 
@@ -41,7 +41,7 @@
     {% endfor %}
     <div class="col-md-6">
       <button type="submit" class="btn btn-primary">
-        Зарегистрироваться
+        Register
       </button>
     </div>
     </form>

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 {% block title %}
-Пост {{ post.text|slice:":30" }}
+Post {{ post.text|slice:":30" }}
 {% endblock %}
 {% block content %}
 <div class="container py-5">
@@ -9,25 +9,25 @@
     <aside class="col-12 col-md-3">
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
-          Дата публикации: {{post.pub_date|date:"d E Y"}} 
+          Publication date: {{post.pub_date|date:"d E Y"}} 
         </li>
         {% if post.group %}  
           <li class="list-group-item">
-            Группа: {{post.group.title}}
+            Group: {{post.group.title}}
             <a href="{% url 'posts:group_list' post.group.slug %}">
-              все записи группы
+              all group's messages
             </a>
           </li>
         {% endif %}
           <li class="list-group-item">
-            Автор: {{ post.author }}
+            Author: {{ post.author }}
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            Всего постов автора:  <span > {{ post.author.posts.count }} </span>
+            Posts count:  <span > {{ post.author.posts.count }} </span>
         </li>
         <li class="list-group-item">
           <a href="{% url 'posts:profile' post.author.username %}">
-            все посты пользователя
+            All author's posts
           </a>
         </li>
       </ul>
@@ -42,7 +42,7 @@
     </p>
     {% if user == post.author %}
     <a class="btn btn-primary" href="{% url 'posts:post_edit' post.pk %}">
-      редактировать запись
+      edit post
     </a>
     {% endif %}
     {% include "posts/includes/comments.html" %}

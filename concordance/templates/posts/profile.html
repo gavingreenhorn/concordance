@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 {% block title %}
-Профайл пользователя {{ author.username }}
+{{ author.username }}'s profile
 {% endblock %}
 {% block content %}
   <div class="container py-5">        
     <div class="mb-5">
-      <h1>Все посты пользователя {{ author.get_full_name }}</h1>
-      <h3>Всего постов: {{ page_obj.paginator.count }}</h3>
+      <h1>All posts from {{ author.get_full_name }}</h1>
+      <h3>Posts count {{ page_obj.paginator.count }}</h3>
         {% if following %}
           <a
             class="btn btn-lg btn-light"
             href="{% url 'posts:profile_unfollow' author.username %}" role="button"
           >
-            Отписаться
+            Unfollow
           </a>
         {% else %}
           <a
             class="btn btn-lg btn-primary"
             href="{% url 'posts:profile_follow' author.username %}" role="button"
           >
-            Подписаться
+            Follow
           </a>
         {% endif %}
     </div>
@@ -27,19 +27,19 @@
     <article>
       <ul>
         <li>
-          Автор: {{ author.username }}
+          Author: {{ author.username }}
         </li>
         <li>
-          Дата публикации: {{ post.pub_date|date:"d E Y" }}
+          Publication date: {{ post.pub_date|date:"d E Y" }}
         </li>
       </ul>
       <p>
         {{ post.text }}
       </p>
-      <a href="{% url 'posts:post_detail' post.id %}"> подробная информация </a>
+      <a href="{% url 'posts:post_detail' post.id %}"> details </a>
     </article>
     {% if post.group %}  
-    <a href="{% url 'posts:group_list' post.group.slug %}"> все записи группы </a>
+    <a href="{% url 'posts:group_list' post.group.slug %}"> all group's messages </a>
     {% endif %}  
     {% if not forloop.last %} <hr> {% endif %}
     {% endfor %}

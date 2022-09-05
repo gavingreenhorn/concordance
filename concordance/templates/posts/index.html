@@ -1,38 +1,89 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 {% block title %}
-Последние обновления на сайте
+Landing page
 {% endblock %}
 {% block content %}
 {% include 'posts/includes/switcher.html' %}
-<div class="container py-5">     
+<div class="container">
   <h1>{{ title }}</h1>
-  {# {% load cache %} #}
-  {# {% cache 20 index_page %} #}
+  <hr>
+  {% if not page_obj %}
+  <h2> Winds howling... </h2>
+  {% endif %}
+  {% load cache %}
+  {% cache 20 posts page_obj %}
   {% for post in page_obj %}
   <article>
-    <ul>
-      <li>
-        Автор: {{ post.author.get_full_name }}
-        <a href="{% url 'posts:profile' post.author.username %}"> все записи автора </a>
-      </li>
-      <li>
-        Дата публикации: {{ post.pub_date|date:"d E Y" }}
-      </li>
-    </ul>
-    {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
-      <img class="card-img my-2" src="{{ im.url }}">
-    {% endthumbnail %}
-    <p>{{ post.text }}</p>
-    <a href="{% url 'posts:post_detail' post.id %}"> подробная информация </a>
-    <br>
-    {% if post.group %} 
-    <a href="{% url 'posts:group_list' post.group.slug %}"> все записи группы </a>
-    {% endif %}
+    <div style="margin-bottom: 16px">
+      <a class="postmark" style="display: block"
+        href="{% url 'posts:post_detail' post.id %}">
+        <span style="font-size: 12px; display: block">
+          {{ post.author.get_full_name }} </span>
+        <span style="font-size: 10px; display: block">
+          {{ post.pub_date|date:"d E Y" }}
+          {% if post.group %}
+          | {{ post.group.title }}
+          {% endif %}
+        </span>
+      </a>
+    </div>
+    <div class="row">
+      {% thumbnail post.image "300x300" upscale="False" as im %}
+      <div class="col-sm-3"
+        style="
+          width: fit-content;
+          height: fit-content;"
+        >
+        <img src="{{ im.url }}" style="box-shadow: 0 0 3px 0 rgb(0 0 0 / 0.2)">
+      </div>
+      {% endthumbnail %}
+      <div
+        class="col-sm-9"
+        style="
+          width: fit-content;
+          height: fit-content;"
+        >
+        <p>{{ post.text }}</p>
+      </div>
+    </div>
+    <div style="margin-top: 16px">
+      <span style="font-size: 12px; margin: 0 5px 0 0">
+        <a
+          class="postmark"
+          href="{% url 'posts:profile' post.author.username %}">
+          Author page
+        </a>
+      </span>
+      {% if post.group %}
+      <span style="font-size: 12px; margin: 0 5px 0 0">
+        <a
+          class="postmark"
+          href="{% url 'posts:group_list' post.group.slug %}">
+          Group page
+        </a>
+      </span>
+      {% endif %}
+    </div>
   </article>
   {% if not forloop.last %}<hr>{% endif %}
   {% endfor %}
-  {# {% endcache %} #}
+  {% endcache %}
   {% include 'posts/includes/paginator.html' %}
 </div>
+<style>
+  .postmark {
+    font-weight: 400;
+    color: #435a6b;
+    padding: 0 5px;
+    width: fit-content;
+    border-radius: 3px;
+    box-shadow: 0.5px 0.5px 3px -1px #525252;
+  }
+  .postmark:hover {
+    box-shadow: inset 0.5px 0.5px 3px -1px #525252;
+    font-weight: 500;
+    text-shadow: 0 0 1px #435a6b;
+  }
+</style>
 {% endblock %}
