@@ -1,0 +1,13 @@
+{% extends "users/base_form.html" %}
+{% block title %}Вы вышли из системы{% endblock %}
+{% block header %}
+  Выход
+{% endblock %}
+{% block body %}
+  <p>
+    Вы вышли из своей учётной записи. Ждём вас снова!
+  </p>
+  <a class="btn btn-primary" href="{% url 'posts:index' %}">
+    На главную
+  </a>
+{% endblock %}
