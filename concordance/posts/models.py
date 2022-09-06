@@ -5,6 +5,7 @@ from django.shortcuts import reverse
 from core.models import CreatedModel
 
 
+POST_REPR = '{author} ({timestamp}): "{snippet}"'
 User = get_user_model()
 
 
@@ -39,9 +40,11 @@ class Post(CreatedModel):
         ordering = ['-pub_date']
 
     def __str__(self):
-        snippet = self.text if len(self.text) <= 50 else self.text[:47] + '...'
-        timestamp = self.pub_date.strftime('%d/%m/%Y %H:%M')
-        return (f'{self.author} ({timestamp}): "{snippet}"')
+        return POST_REPR.format(
+            authot=self.author.username,
+            timestamp = self.pub_date.strftime('%d/%m/%Y %H:%M'),
+            snippet = self.text if len(self.text) <= 50 else self.text[:47] + '...'
+        )
 
     def get_absolute_url(self):
         return reverse('posts:post_detail', args=(self.id,))
