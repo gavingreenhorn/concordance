@@ -35,10 +35,10 @@ class UsersURLTests(TestCase):
             '/auth/password_change/done/': 'users/password_change_done.html',
         }
 
-    def test_get_login(self):
-        response = self.guest_client.get('/auth/login/')
-        self.assertEqual(response.status_code, HTTPStatus.OK)
-
     def test_get_signup(self):
         response = self.guest_client.get('/auth/signup/')
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_get_login(self):
+        response = self.guest_client.get('/auth/login/')
         self.assertEqual(response.status_code, HTTPStatus.OK)
